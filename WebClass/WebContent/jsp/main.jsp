@@ -124,7 +124,7 @@
 					<h5 class="modal-title" id="logInModalLabel">LogIn</h5>
 				</div>
 
-				<form id="logInForm">
+				<form id="logInForm" method = "post">
 					<div class="modal-body">
 						<input class="form-control" name="logInId" type="text"
 							placeholder="ID" id="logInId" required> <br /> <input
@@ -291,6 +291,29 @@
 
 
 	<div class="footer"></div>
+	<script>$(document).ready(function () {
+		  $('#logInForm').submit(function (event) {
+			  event.preventDefault();
+			var id = $('#logInId').val();
+			var pwd = $('#logInPwd').val();
+			var result;
+			console.log(id,pwd);
+			$.post("/WebClass/bloglogin",
+					{"id" : id, "pwd" : pwd, "result" : result},
+					function(data) {
+						console.log(data);
+						if(data.result){
+							location.href='jsp/main.jsp';	
+						}
+						else{
+							var myModal = $('#myModal');
+							myModal.find('.modal-title').text('Login Error');
+							myModal.find('.modal-body').text('Invalid username or password');
+							myModal.modal();
+						}
+					});
+		  });
+	  });</script>
 	<script type="text/javascript" src="../js/scroll.js"></script>
 	<script type="text/javascript" src="../js/javascript.js"></script>
 </body>
