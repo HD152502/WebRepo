@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="org.dimigo.vo.UserVO"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,13 +50,22 @@
 					onmouseout="menu_out(this)"><a class="nav-link scroll"
 					href="#bucket">Bucket List</a></li>
 			</ul>
-			
+			<%
+			UserVO user = (UserVO) session.getAttribute("user");
+			if (user == null) {
+			%>
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="nav-link" data-toggle="modal"
 					data-target="#logInModal" style="color: blue">Login</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="modal"
 					data-target="#exampleModal" style="color: blue">Register</a></li>
 			</ul>
+			<%} else { %>
+						<ul class="nav justify-content-end">
+				<li class="nav-item"><a class="nav-link" data-toggle="modal"
+					data-target="" style="color: blue"><%=user.getName()+"님" %></a></li>
+			</ul>
+			<%} %>
 		</div>
 	</nav>
 	<div class="modal" id="exampleModal" tabindex="-1" role="dialog"
@@ -123,8 +135,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">Close</button>
-						<button class="btn btn-primary" type="submit">Login
-						</button>
+						<button class="btn btn-primary" type="submit">Login</button>
 					</div>
 				</form>
 			</div>
