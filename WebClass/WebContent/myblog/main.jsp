@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="modal.jsp"%>
 <%@ page import="org.dimigo.vo.UserVO"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" type="text/css" href="../css/ytgoo.css">
+<link rel="stylesheet" type="text/css" href="/WebClass/css/ytgoo.css">
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
@@ -51,21 +52,33 @@
 					href="#bucket">Bucket List</a></li>
 			</ul>
 			<%
-			UserVO user = (UserVO) session.getAttribute("user");
-			if (user == null) {
+				UserVO user = (UserVO) session.getAttribute("user");
+				if (user == null) {
 			%>
 			<ul class="nav justify-content-end">
-				<li class="nav-item"><a class="nav-link" data-toggle="modal"
-					data-target="#logInModal" style="color: blue">Login</a></li>
+				<li class="nav-item"><a class="nav-link" href = "/WebClass/bloglogin" style="color: blue">Login</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="modal"
 					data-target="#exampleModal" style="color: blue">Register</a></li>
 			</ul>
-			<%} else { %>
-						<ul class="nav justify-content-end">
-				<li class="nav-item"><a class="nav-link" data-toggle="modal"
-					data-target="" style="color: blue"><%=user.getName()+"님" %></a></li>
+			<%
+				} else {
+			%>
+			<ul class="nav justify-content-end">
+				<li class="nav-item dropdown"><a
+					class="nav-item nav-link dropdown-toggle mr-md-2" href="#"
+					id="bd-versions" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> <%=user.getName() + "님"%>
+				</a>
+				<div class="dropdown-menu dropdown-menu-right"
+						aria-labelledby="bd-versions">
+						<form action="/WebClass/bloglogout" method="post">
+							<button type="submit" class="dropdown-item">Sign out</button>
+						</form>
+					</div></li>
 			</ul>
-			<%} %>
+			<%
+				}
+			%>
 		</div>
 	</nav>
 	<div class="modal" id="exampleModal" tabindex="-1" role="dialog"
@@ -131,12 +144,27 @@
 							class="form-control" name="logInPwd" type="text"
 							placeholder="PWD" id="logInPwd" required>
 					</div>
-
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">Close</button>
 						<button class="btn btn-primary" type="submit">Login</button>
 					</div>
+					<div class="modal" id="myModal" style="display: none;"
+						aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Sign Up Error</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+								</div>
+								<div class="modal-body">회원 가입 시 오류가 발생하였습니다.</div>
+							</div>
+						</div>
+					</div>
+
 				</form>
 			</div>
 		</div>
@@ -208,7 +236,7 @@
 			<h5 class="white">
 				블로그 : <a class="white" href="http://cl4vis.tistory.com">www.cl4vis.tistory.com</a>
 			</h5>
-			<img src="../image/boy.png" class="absolute" alt="boy">
+			<img src="/WebClass/image/boy.png" class="absolute" alt="boy">
 		</div>
 	</section>
 
@@ -226,21 +254,21 @@
 			</ol>
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img class="d-block w-100 pic" src="../image/1.jpg"
+					<img class="d-block w-100 pic" src="/WebClass/image/1.jpg"
 						alt="First slide">
 					<div class="carousel-caption d-none d-md-block">
 						<h3 style="color: white">종아하는 연예인 : 박보영</h3>
 					</div>
 				</div>
 				<div class="carousel-item">
-					<img class="d-block w-100 pic" src="../image/soccer.jpg"
+					<img class="d-block w-100 pic" src="/WebClass/image/soccer.jpg"
 						alt="Second slide">
 					<div class="carousel-caption d-none d-md-block">
 						<h3 style="color: white">종아하는 운동 : 축구</h3>
 					</div>
 				</div>
 				<div class="carousel-item">
-					<img class="d-block w-100 pic" src="../image/webhack.jpg"
+					<img class="d-block w-100 pic" src="/WebClass/image/webhack.jpg"
 						alt="Third slide">
 					<div class="carousel-caption d-none d-md-block">
 						<h3 style="color: white">좋아하는 공부 : 웹 해킹</h3>
@@ -291,30 +319,7 @@
 
 
 	<div class="footer"></div>
-	<script>$(document).ready(function () {
-		  $('#logInForm').submit(function (event) {
-			  event.preventDefault();
-			var id = $('#logInId').val();
-			var pwd = $('#logInPwd').val();
-			var result;
-			console.log(id,pwd);
-			$.post("/WebClass/bloglogin",
-					{"id" : id, "pwd" : pwd, "result" : result},
-					function(data) {
-						console.log(data);
-						if(data.result){
-							location.href='jsp/main.jsp';	
-						}
-						else{
-							var myModal = $('#myModal');
-							myModal.find('.modal-title').text('Login Error');
-							myModal.find('.modal-body').text('Invalid username or password');
-							myModal.modal();
-						}
-					});
-		  });
-	  });</script>
-	<script type="text/javascript" src="../js/scroll.js"></script>
-	<script type="text/javascript" src="../js/javascript.js"></script>
+	<script type="text/javascript" src="/WebClass/js/scroll.js"></script>
+	<script type="text/javascript" src="/WebClass/js/javascript.js"></script>
 </body>
 </html>
