@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="org.dimigo.servlet.BlogLoginServlet"%>
+<%@ page import="org.dimigo.vo.UserVO"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,13 +20,14 @@
 
 		<form class="form-signin" action="/WebClass/bloglogin" method="post">
 			<h2 class="form-signin-heading">Please log in</h2>
-
+			<% String pwd = request.getParameter("pwd"); %>
+			<% String id = request.getParameter("id"); %>
 			<label for="inputEmail" class="sr-only">Email address</label> <input
 				type="email" name="id" id="inputEmail" class="form-control"
-				placeholder="Email address" required autofocus> <label
+				placeholder="Email address" required value= "<%= id == null ? "" : id %>" autofocus> <label
 				for="inputPassword" class="sr-only">Password</label> <input
 				type="password" name="pwd" id="inputPassword" class="form-control"
-				placeholder="Password" required>
+				placeholder="Password" required value= "<%= pwd == null ? "" : pwd %>">
 
 			<button class="btn btn-lg btn-primary btn-block" type="submit">log
 				in</button>
