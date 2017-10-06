@@ -20,14 +20,13 @@
 
 		<form class="form-signin" action="/WebClass/bloglogin" method="post">
 			<h2 class="form-signin-heading">Please log in</h2>
-			<% String pwd = request.getParameter("pwd"); %>
 			<% String id = request.getParameter("id"); %>
 			<label for="inputEmail" class="sr-only">Email address</label> <input
 				type="email" name="id" id="inputEmail" class="form-control"
 				placeholder="Email address" required value= "<%= id == null ? "" : id %>" autofocus> <label
 				for="inputPassword" class="sr-only">Password</label> <input
 				type="password" name="pwd" id="inputPassword" class="form-control"
-				placeholder="Password" required value= "<%= pwd == null ? "" : pwd %>">
+				placeholder="Password" require>
 
 			<button class="btn btn-lg btn-primary btn-block" type="submit">log
 				in</button>
