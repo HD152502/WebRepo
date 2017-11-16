@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="/WebClass/css/signin.css">
 </head>
 <body>
-	<div class="container">
+	<div class="container">	
 
 		<form class="form-signin" action="/WebClass/bloglogin" method="post">
 			<h2 class="form-signin-heading">Please log in</h2>
